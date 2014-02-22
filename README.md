@@ -12,3 +12,10 @@ wunderground API (weather data)
 
 Standing Funtionality:
 Prints the date, time, and temperature.
+Has Alarm a simple alarm functionality
+
+Future Aspirations:
+Transfer to the Web
+add sound activation with SoundAnalyse
+add image capture and display via webcam
+traffic data? (not convinced how useful this will be to a short commute)
