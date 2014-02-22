@@ -9,7 +9,7 @@ print time.strftime("%d/%m/%Y")
 print time.strftime("%I:%M%p")
 
 
-f = urllib2.urlopen('http://api.wunderground.com/api/ea509b7f81eea8a3/geolookup/conditions/q/IA/Rochester.json')
+f = urllib2.urlopen('http://api.wunderground.com/api/your_API_key/geolookup/conditions/q/IA/Rochester.json')
 json_string = f.read()
 parsed_json = json.loads(json_string)
 location = parsed_json['location']['city']
