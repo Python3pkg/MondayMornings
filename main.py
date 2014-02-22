@@ -24,20 +24,21 @@ f.close()
 #Add webcam functionality
 #--------------------------------------------------------------------------
 
+
 #Add Alarm functionality
 #-------------------------------------------------------------------------
-alarm_HH = input("Hour: ")
-alarm_MM = input("Minute: ")
-print("We're set for", alarm_HH , alarm_MM)
+alarm_HH = input("What hour do you want to wake up? : ")
+alarm_MM = input("What minute do you want to wake up? : ")
+print("We're set for " + str(alarm_HH) + ":" + str(alarm_MM))
 
 while True:
     now = time.localtime()
-    if now.tm_hour == int(alarm_HH) and now.tm_min  == int(alarm_MM):
+    if now.tm_hour >= int(alarm_HH) and now.tm_min  >= int(alarm_MM):
         print("Yup this works!")
         #os.popen("YOUR SONG / SOUND HERE")
         break
     else:
-        time.sleep(30)
+        time.sleep(10)
         print("not yet!")
-        if now.tm_hour > int(alarm_HH) and now/tm_min > int(alarm_MM):
+        if now.tm_hour <= int(alarm_HH) and now.tm_min <= int(alarm_MM):
             break
