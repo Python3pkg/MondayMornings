@@ -6,4 +6,9 @@ Items needed:
 - Raspberry PI
 - HDMI cable
 - Monitor
-- Cost Effective Webcam 
+- Cost Effective Webcam
+API's Used:
+wunderground API (weather data)
+
+Standing Funtionality:
+Prints the date, time, and temperature.
