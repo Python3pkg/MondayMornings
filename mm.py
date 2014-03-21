@@ -2,32 +2,15 @@
 #wunderground libs
 import urllib2
 import json
-#camera and music 
 import pygame
-#import pygame.camera
-#from pygame.locals import*
-#lauxl date and time
 import datetime
 import random
 from time import sleep
-
-#Add today's events from calendar 
-#--------------------------------------------------------------------------
-
-#Add Recent Emails
-#--------------------------------------------------------------------------
-
-#Text Messages notification
-#--------------------------------------------------------------------------
-
-#Voice Recognition
-#--------------------------------------------------------------------------
 
 #Alarm functionality
 #--------------------------------------------------------------------------
 #inits()
 pygame.init()
-#pygame.camera.init()
 # get the alarm sound ready to go
 pygame.mixer.music.load('missle_alarm.wav')
 
@@ -76,7 +59,7 @@ print "Good Maths. Time to GAUX!"
 
 #Weather functionality - courtesy of the weather underground API
 #--------------------------------------------------------------------------
-f = urllib2.urlopen('http://api.wunderground.com/api/ea509b7f81eea8a3/geolookup/conditions/q/IA/Rochester.json')
+f = urllib2.urlopen('http://api.wunderground.com/api/______Your API Key______/geolookup/conditions/q/IA/Rochester.json')
 json_string = f.read()
 parsed_json = json.loads(json_string)
 location = parsed_json['location']['city']
@@ -85,24 +68,7 @@ windchill = parsed_json['current_observation']['windchill_f']
 weather = parsed_json['current_observation']['weather']
 print "Current weather in %s is %s at a temperature of: %s degrees, with a windchill of %s degrees" % (weather,location, temp_f, windchill)
 f.close()
-#Add Camera functionality
-#--------------------------------------------------------------------------
-#pygame.camera.init()
-'''
-camlist = pygame.camera.list_cameras()
-if camlist:
-    cam = pygame.camera.Camera(camlist[0], (640,480))
-    cam.start()
-    image = cam.get_image()
-    pygame.image.save(image,'test.jpg')
-    w = 640
-    h = 480
-    size = (w,h)
-    screen = pygame.display.set_mode(size)
-    while True:
-        load_image = pygame.image.load('test.jpg')
-        screen.blit(img,(0,0))
-        pygame.display.flip()
-'''
+
+
 
 
