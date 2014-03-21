@@ -1,25 +1,34 @@
 #import statements
+#wunderground libs
 import urllib2
 import json
-import os
+#camera and music 
 import pygame
+#import pygame.camera
+#from pygame.locals import*
+#lauxl date and time
 import datetime
 import random
 from time import sleep
 
-
-#Date-Time functionality
+#Add today's events from calendar 
 #--------------------------------------------------------------------------
 
-#Add webcam functionality
+#Add Recent Emails
 #--------------------------------------------------------------------------
 
+#Text Messages notification
+#--------------------------------------------------------------------------
 
-#Add Alarm functionality
-#-------------------------------------------------------------------------
+#Voice Recognition
+#--------------------------------------------------------------------------
 
-# get the alarm sound ready to go
+#Alarm functionality
+#--------------------------------------------------------------------------
+#inits()
 pygame.init()
+#pygame.camera.init()
+# get the alarm sound ready to go
 pygame.mixer.music.load('missle_alarm.wav')
 
 # returns seconds to wait to start alarm
@@ -31,30 +40,30 @@ def howlong(alarmtime):
     currtime = datetime.time(getattr(now, "hour"), getattr(now, "minute")) 
     
     # convert user entered time into python time format
-    alarmtime = datetime.datetime.strptime(alarmtime, '%H:%M')
+    alarmtime = datetime.datetime.strptime(alarmtime, '%I:%M')
     alarmtime = datetime.time(getattr(alarmtime, "hour"), getattr(alarmtime, "minute"))
     # add today's date onto the alarm time entered
     alarmdatetime = datetime.datetime.combine(currdate, alarmtime)
     
     if alarmtime < currtime: # if the alarm time is less than the current time set clock for tomorrow
-        alarmdatetime += datetime.timedelta(hours=24)
+        alarmdatetime += datetime.timedelta(hours=12)
     
     return alarmdatetime - now
 
 def mathprob(num1, num2, userans): # see if i've solved the problem
     return int(userans) == num1 + num2
     
-usertime = raw_input("Enter the time you want [hh:mm] ->")
+usertime = raw_input("Enter the time you want [hh:mm] > ")
 z = howlong(usertime)
 sleep(z.seconds) # wait until it is time for the alarm to go off
 
-pygame.mixer.music.play(10) # start the alarm and make it loop 10 times
+pygame.mixer.music.play() # start the alarm 
 
 random.seed()
 num1 = random.randrange(100, 999) # generate two numbers at random to test for addition
 num2 = random.randrange(100, 999)
 
-puzzle = raw_input("Good morning.  To stop the alarm, add these numbers: %r + %r -> " % (num1, num2))
+puzzle = raw_input("Good morning.  To stop the alarm, add these numbers: %r + %r > " % (num1, num2))
 solved = mathprob(num1, num2, puzzle)
 
 while solved == False:
@@ -63,16 +72,37 @@ while solved == False:
 
 pygame.mixer.music.stop()
 
-print "Excellent job.  Now get up and start your day!"
-#I've commented out the weather data becuase I only get 3 pulls a day. For my wallets sake, Im commenting this out
-'''
+print "Good Maths. Time to GAUX!"
+
 #Weather functionality - courtesy of the weather underground API
 #--------------------------------------------------------------------------
-f = urllib2.urlopen('http://api.wunderground.com/api/YOUR_API_KEY/geolookup/conditions/q/IA/Rochester.json')
+f = urllib2.urlopen('http://api.wunderground.com/api/ea509b7f81eea8a3/geolookup/conditions/q/IA/Rochester.json')
 json_string = f.read()
 parsed_json = json.loads(json_string)
 location = parsed_json['location']['city']
 temp_f = parsed_json['current_observation']['temp_f']
-print "Current temperature in %s is: %s" % (location, temp_f)
+windchill = parsed_json['current_observation']['windchill_f']
+weather = parsed_json['current_observation']['weather']
+print "Current weather in %s is %s at a temperature of: %s degrees, with a windchill of %s degrees" % (weather,location, temp_f, windchill)
 f.close()
+#Add Camera functionality
+#--------------------------------------------------------------------------
+#pygame.camera.init()
 '''
+camlist = pygame.camera.list_cameras()
+if camlist:
+    cam = pygame.camera.Camera(camlist[0], (640,480))
+    cam.start()
+    image = cam.get_image()
+    pygame.image.save(image,'test.jpg')
+    w = 640
+    h = 480
+    size = (w,h)
+    screen = pygame.display.set_mode(size)
+    while True:
+        load_image = pygame.image.load('test.jpg')
+        screen.blit(img,(0,0))
+        pygame.display.flip()
+'''
+
+
