@@ -1,6 +1,6 @@
 #import statements
 #wunderground libs
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import json
 import pygame
 import datetime
@@ -36,7 +36,7 @@ def howlong(alarmtime):
 def mathprob(num1, num2, userans): # see if i've solved the problem
     return int(userans) == num1 + num2
     
-usertime = raw_input("Enter the time you want [hh:mm] > ")
+usertime = input("Enter the time you want [hh:mm] > ")
 z = howlong(usertime)
 sleep(z.seconds) # wait until it is time for the alarm to go off
 
@@ -46,27 +46,27 @@ random.seed()
 num1 = random.randrange(100, 999) # generate two numbers at random to test for addition
 num2 = random.randrange(100, 999)
 
-puzzle = raw_input("Good morning.  To stop the alarm, add these numbers: %r + %r > " % (num1, num2))
+puzzle = input("Good morning.  To stop the alarm, add these numbers: %r + %r > " % (num1, num2))
 solved = mathprob(num1, num2, puzzle)
 
 while solved == False:
-    puzzle = raw_input("That is not right.  Try again.  %r + %r -> " % (num1, num2))
+    puzzle = input("That is not right.  Try again.  %r + %r -> " % (num1, num2))
     solved = mathprob(num1, num2, puzzle)
 
 pygame.mixer.music.stop()
 
-print "Good Maths. Time to GAUX!"
+print("Good Maths. Time to GAUX!")
 
 #Weather functionality - courtesy of the weather underground API
 #--------------------------------------------------------------------------
-f = urllib2.urlopen('http://api.wunderground.com/api/______Your API Key______/geolookup/conditions/q/IA/Rochester.json')
+f = urllib.request.urlopen('http://api.wunderground.com/api/______Your API Key______/geolookup/conditions/q/IA/Rochester.json')
 json_string = f.read()
 parsed_json = json.loads(json_string)
 location = parsed_json['location']['city']
 temp_f = parsed_json['current_observation']['temp_f']
 windchill = parsed_json['current_observation']['windchill_f']
 weather = parsed_json['current_observation']['weather']
-print "Current weather in %s is %s at a temperature of: %s degrees, with a windchill of %s degrees" % (weather,location, temp_f, windchill)
+print("Current weather in %s is %s at a temperature of: %s degrees, with a windchill of %s degrees" % (weather,location, temp_f, windchill))
 f.close()
 
 
